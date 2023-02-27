@@ -1,5 +1,5 @@
 export default class Controller{
-    constructor(){
+    constructor({}){
 
     }
 
@@ -9,6 +9,6 @@ export default class Controller{
     }
 
     async init(){
-        console.log('init!')
+       
     }
 }
