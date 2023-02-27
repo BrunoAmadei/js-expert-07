@@ -8,7 +8,10 @@ const factory = {
   async initalize() {
     return CardsController.initialize({
       view: new CardsView(),
-      service: new CardsService({ dbUrl: `${rootPath}/assets/database.json` })
+      service: new CardsService({ 
+        dbUrl: `${rootPath}/assets/database.json`,
+        cardListWorker
+      })
     })
   }
 }
