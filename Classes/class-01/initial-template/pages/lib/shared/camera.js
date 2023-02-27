@@ -11,7 +11,7 @@ export default class Camera {
         }
         const videoConfig = {
             audio: false,
-            vide: {
+            video: {
                 width: globalThis.screen.availWidth,
                 height: globalThis.screen.availHeight,
                 frameRate: {
@@ -19,22 +19,23 @@ export default class Camera {
                 }
             }
         }
+
         const stream = await navigator.mediaDevices.getUserMedia(videoConfig)
         const camera = new Camera()
         camera.video.srcObject = stream
 
-        camera.video.height = 240
-        camera.video.width = 320
-        document.body.append(camera.video)
+        // debug camera!
+        // camera.video.height = 240
+        // camera.video.width = 320
+        // document.body.append(camera.video)
 
-        await new Promise((resolve) => {
-            camera.video.onloadeddata = () => { 
+        await new Promise(resolve => {
+            camera.video.onloadedmetadata = () => {
                 resolve(camera.video)
             }
         })
 
         camera.video.play()
-        
         return camera
     }
 

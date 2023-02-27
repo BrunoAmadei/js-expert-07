@@ -1,4 +1,4 @@
-import Camera from "../../../../lib/shared/camera.js"
+import Camera from "../../lib/shared/camera.js"
 import Controller from "./controller.js"
 import Service from "./service.js"
 import View from "./view.js"
