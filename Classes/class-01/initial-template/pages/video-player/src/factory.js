@@ -6,7 +6,7 @@ import View from "./view.js"
 
 async function getWorker() {
     if (supportsWorkerType()) {
-        console.log('suporta')
+  
         const worker = new Worker('./src/worker.js', {type: 'module'})
         return worker
     }
@@ -15,8 +15,7 @@ async function getWorker() {
         async postMessage (){},
         onmessage(message){}
     }
-    
-    console.log('não suporta')
+ 
     return workerMock
 }
 
