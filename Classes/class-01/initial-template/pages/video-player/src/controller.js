@@ -1,10 +1,12 @@
+import { prepareRunChecker } from "../../lib/shared/util.js"
+
+const { shouldRun } = prepareRunChecker({ timerDelay: 500 })
 export default class Controller {
     #view
     #camera
     #worker
     #blinkCounter = 0
-
-    constructor({ view,  worker, camera }) {
+    constructor({ view, worker, camera }) {
         this.#view = view
         this.#camera = camera
         this.#worker = this.#configureWorker(worker)
@@ -14,8 +16,7 @@ export default class Controller {
 
     static async initialize(deps) {
         const controller = new Controller(deps)
-        controller.log('not detecting eye blink, click button to start')
-
+        controller.log('not yet detecting eye blink! click in the button to start')
         return controller.init()
     }
 
@@ -23,8 +24,9 @@ export default class Controller {
         let ready = false
         worker.onmessage = ({ data }) => {
             if ('READY' === data) {
-                console.log('worker ready')
+                console.log('worker is ready!')
                 this.#view.enableButton()
+                ready = true
                 return
             }
             const blinked = data.blinked
@@ -32,29 +34,28 @@ export default class Controller {
             this.#view.togglePlayVideo()
             console.log('blinked', blinked)
         }
+
         return {
-            send(msg){
-                if(!ready) return
+            send(msg) {
+                if (!ready) return
                 worker.postMessage(msg)
             }
         }
     }
-
     async init() {
-
+        console.log('init!!')
     }
 
-    loop(){
+    loop() {
         const video = this.#camera.video
         const img = this.#view.getVideoFrame(video)
-        this.#worker.send(img )
+        this.#worker.send(img)
         this.log(`detecting eye blink...`)
-        
-        setTimeout(()=> this.loop, 100)    
+        setTimeout(() => this.loop(), 100)
     }
-
     log(text) {
-        this.#view.log(`logger: ${text}`)
+        const times = `      - blinked times: ${this.#blinkCounter}`
+        this.#view.log(`status: ${text}`.concat(this.#blinkCounter ? times : ""))
     }
 
     onBtnStart() {

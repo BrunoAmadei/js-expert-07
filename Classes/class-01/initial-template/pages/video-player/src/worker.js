@@ -4,22 +4,22 @@ import "https://unpkg.com/@tensorflow/tfjs-backend-webgl@2.4.0/dist/tf-backend-w
 import "https://unpkg.com/@tensorflow-models/face-landmarks-detection@0.0.1/dist/face-landmarks-detection.js"
 
 import Service from "./service.js"
+// no processo principal é window
+// no worker é self
 
-const { tf, faceLandmarksDetection } = self
+const {tf, faceLandmarksDetection } = self
 tf.setBackend('webgl')
 
 const service = new Service({
-    faceLandmarksDetection
+  faceLandmarksDetection
 })
-
 console.log('loading tf model')
 await service.loadModel()
 console.log('tf model loaded!')
 postMessage('READY')
 
-
-onmessage = async ({ data:video }) => {
-    const blinked = await service.handBlink(video)
-    if(!blinked) return;
-    postMessage({ blinked })
+onmessage = async ({ data: video }) => {
+  const blinked = await service.handBlinked(video)
+  if(!blinked) return;
+  postMessage({ blinked })
 }
