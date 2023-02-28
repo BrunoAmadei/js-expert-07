@@ -6,22 +6,20 @@ import View from "./view.js"
 
 async function getWorker() {
     if (supportsWorkerType()) {
-  
-        const worker = new Worker('./src/worker.js', {type: 'module'})
+        console.log('initializing esm workers')
+        const worker = new Worker('./src/worker.js', { type: 'module' })
         return worker
     }
-    
+
     const workerMock = {
-        async postMessage (){},
-        onmessage(message){}
+        async postMessage() { },
+        onmessage(message) { }
     }
- 
+
     return workerMock
 }
 
 const worker = await getWorker()
-worker.postMessage('from factory')
-
 
 const camera = await Camera.init()
 const [rootPath] = window.location.href.split('/pages/')
@@ -30,8 +28,7 @@ const factory = {
         return Controller.initialize({
             view: new View(),
             service: new Service({}),
-            worker : worker
-
+            worker
         })
     }
 

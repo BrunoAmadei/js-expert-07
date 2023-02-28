@@ -6,7 +6,8 @@ export default class Controller {
     constructor({ view, service, worker }) {
         this.#view = view
         this.#service = service
-        this.#worker = worker
+        this.#worker = this.#configureWorker(worker)
+
         this.#view. configureOnBtnClick(this.onBtnStart.bind(this))
     }
 
@@ -16,6 +17,17 @@ export default class Controller {
 
         return controller.init()
     }
+
+    #configureWorker(worker){
+        worker.onmessage = (data) => {
+          if('READY' === msg.data){
+            this.#view.enableButton()
+            return 
+          }
+        }
+        return worker
+    }
+
 
     async init() {
 
