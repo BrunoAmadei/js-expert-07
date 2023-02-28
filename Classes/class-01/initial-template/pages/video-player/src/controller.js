@@ -1,10 +1,12 @@
 export default class Controller {
     #view
     #service
-    constructor({ view, service }) {
+    #worker
+
+    constructor({ view, service, worker }) {
         this.#view = view
         this.#service = service
-
+        this.#worker = worker
         this.#view. configureOnBtnClick(this.onBtnStart.bind(this))
     }
 
