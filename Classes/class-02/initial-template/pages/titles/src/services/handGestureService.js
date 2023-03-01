@@ -1,24 +1,27 @@
 export default class HandGestureService {
     #fingerpose
     #handPoseDetection
-    #handVersion
+    #handsVersion
     #detector = null
-    constructor({ fingerpose, handPoseDetection, handVersion }) {
+
+    constructor({ fingerpose, handPoseDetection, handsVersion }) {
         this.#fingerpose = fingerpose
         this.#handPoseDetection = handPoseDetection
-        this.#handVersion = handVersion
+        this.#handsVersion = handsVersion
     }
 
     async initializeDetector() {
         if (this.#detector) return this.#detector
 
         const detectorConfig = {
-            runtime: 'mediapipe', // or 'tfjs'
-            solutionPath:` https://cdn.jsdelivr.net/npm/@mediapipe/hands@${this.#handVersion}`,
+            runtime: 'mediapipe', // or 'tfjs',
+            solutionPath: `https://cdn.jsdelivr.net/npm/@mediapipe/hands@${this.#handsVersion}`,
+            // full é o mais pesado e o mais preciso
             modelType: 'lite',
             maxHands: 2,
-
         }
-        const detector = await this.#handPoseDetection.createDetector(this.#handPoseDetection.SupportModels.MediaPipeHands, detectorConfig)
+        this.#detector = await this.#handPoseDetection.createDetector(this.#handPoseDetection.SupportedModels.MediaPipeHands, detectorConfig)
+
+        return this.#detector
     }
 }

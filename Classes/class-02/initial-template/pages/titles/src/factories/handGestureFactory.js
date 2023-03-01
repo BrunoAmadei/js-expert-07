@@ -17,7 +17,7 @@ const factory = {
             service: new HandGestureService({
                 fingerpose: window.fp,
                 handPoseDetection: window.handPoseDetection,
-                handsVerion: window.VERSION
+                handsVersion: window.VERSION
             })
         })
     }
