@@ -14,8 +14,10 @@ export default class HandGestureService {
 
         const detectorConfig = {
             runtime: 'mediapipe', // or 'tfjs'
-            solutionPath: 'https://cdn.jsdelivr.net/npm/@mediapipe/hands',
-            modelType: 'lite'
+            solutionPath:` https://cdn.jsdelivr.net/npm/@mediapipe/hands@${this.#handVersion}`,
+            modelType: 'lite',
+            maxHands: 2,
+
         }
         const detector = await this.#handPoseDetection.createDetector(this.#handPoseDetection.SupportModels.MediaPipeHands, detectorConfig)
     }
