@@ -1,6 +1,5 @@
 function supportsWorkerType() {
     let supports = false
-
     const tester = {
         get type() { supports = true }
     }
@@ -17,13 +16,12 @@ function prepareRunChecker({ timerDelay }) {
     return {
         shouldRun() {
             const result = (Date.now() - lastEvent) > timerDelay
-            if(result) lastEvent = Date.now
+            if (result) lastEvent = Date.now()
 
             return result
         }
     }
 }
-
 
 export {
     supportsWorkerType,
