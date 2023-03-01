@@ -11,12 +11,16 @@ import HandGestureView from "../views/handGestureView.js"
 const cardListWorker = new Worker(`./src/workers/cardListWorker.js`, { type: "module" })
 const [rootPath] = window.location.href.split('/pages/')
 const factory = {
-  async initalize() {
-    return HandGestureController.initialize({
-      view: new HandGestureView(),
-      service: new HandGestureService({ })
-    })
-  }
+    async initalize() {
+        return HandGestureController.initialize({
+            view: new HandGestureView(),
+            service: new HandGestureService({
+                fingerpose: window.fp,
+                handPoseDetection: window.handPoseDetection,
+                handsVerion: window.VERSION
+            })
+        })
+    }
 }
 
 export default factory
