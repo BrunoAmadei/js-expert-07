@@ -11,7 +11,6 @@ import Camera from "../../../lib/shared/camera.js"
 import { fingerLookupIndexes, gestureStrings, knownGestures } from "../../lib/util.js"
 
 const camera = await Camera.init()
- 
 
 const factory = {
   async initialize() {

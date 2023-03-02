@@ -27,11 +27,11 @@ export default class HandGestureView {
       this.#drawFingersAndHoverElements(keypoints)
     }
   }
-  
+
   clickOnElement(x, y) {
     const element = document.elementFromPoint(x, y)
-    if(!element) return;
-    
+    if (!element) return;
+
     const rect = element.getBoundingClientRect()
     const event = new MouseEvent('click', {
       view: window,
@@ -57,6 +57,7 @@ export default class HandGestureView {
       this.#canvasContext.fill()
     }
   }
+  
   #drawFingersAndHoverElements(keypoints) {
     const fingers = Object.keys(this.#fingerLookupIndexes)
     for (const finger of fingers) {
@@ -67,12 +68,13 @@ export default class HandGestureView {
       // [0] é a palma da mao (wrist)
       const [{ x, y }] = points
       region.moveTo(x, y)
-      for(const point of points) {
+      for (const point of points) {
         region.lineTo(point.x, point.y)
       }
       this.#canvasContext.stroke(region)
     }
   }
+
   loop(fn) {
     requestAnimationFrame(fn)
   }
