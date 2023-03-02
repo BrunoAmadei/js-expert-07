@@ -1,6 +1,6 @@
 export default class HandGestureView {
-  #handCanvas = document.querySelector("#hands")
-  #canvasContext = this.#handCanvas.getContext("2d")
+  #handsCanvas = document.querySelector("#hands")
+  #canvasContext = this.#handsCanvas.getContext("2d")
 
   constructor() {
     this.#handsCanvas.width = globalThis.screen.availWidth
@@ -25,7 +25,7 @@ export default class HandGestureView {
     }
   }
 
-  #drwaJoins(keypoints) {
+  #drawJoins(keypoints) {
     for (const { x, y } of keypoints) {
       this.#canvasContext.beginPath()
       const newX = x - 2
